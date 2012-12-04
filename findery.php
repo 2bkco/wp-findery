@@ -2,26 +2,24 @@
 /*
 Plugin Name: Findery
 Plugin URI: http://findery.com
-Description: A shortcode plugin for embedding content from Findery
+Description: A shortcode plugin for embedding content from Findery in Wordpress blogs
 Version: 0.1
 Author: Findery
 Author URI: http://findery.com
-License: [Add this]
+License: MIT License (http://opensource.org/licenses/MIT)
 */
 
 function findery_embed( $atts ) {
-
-  $type = '';
 
   extract( shortcode_atts( array (
     'w' => '500',
     'h' => '400'
   ), $atts ));
 
-  return sprintf('<iframe src="%s" width="%s" height="%s"></iframe>', # <iframe> code
-                 preg_replace('/([^\/:])\//', '${1}/embed/', $atts[0], 1), # Add /embed prefix to URL
-                 $atts['width'], # Width
-                 $atts['height']); # Height
+  return sprintf('<iframe src="%s" width="%s" height="%s"></iframe>',
+                 preg_replace('/([^\/:])\//', '${1}/embed/', $atts[0], 1),
+                 $atts['width'],
+                 $atts['height']);
 
 }
 

@@ -1,6 +1,6 @@
 # WP-Findery
 
-_ Allows for shortcode embedding of [Findery](http://findery.com) notes in Wordpress blogs. _
+_Allows for shortcode embedding of [Findery](http://findery.com) notes in Wordpress blogs._
 
 ## Usage
 

@@ -1,6 +1,6 @@
 # WP-Findery
 
-_Allows for shortcode embedding of [Findery](http://findery.com) notes in Wordpress blogs._
+Allows for shortcode embedding of [Findery](http://findery.com) notes in Wordpress blogs.
 
 ## Usage
 
@@ -10,15 +10,15 @@ WP-Findery provides several ways to embed Findery content in your Wordpress blog
 
 Simply pasting a link to a Findery note in the Wordpress editor will automatically embed the note in your blog.
 
-```https://findery.com/caterina/notes/the-giants-causeway```
+``` https://findery.com/caterina/notes/the-giants-causeway ```
 
 ### Method 2: Shortcode
 
 Use a link, similar to the method above, inside of a Findery shortcode. You may optionally specify a width and height when using this method.
 
-```[findery https://findery.com/caterina/notes/the-giants-causeway]```
+``` [findery https://findery.com/caterina/notes/the-giants-causeway] ```
 
-```[findery https://findery.com/caterina/notes/the-giants-causeway w="100%" h="400"]```
+``` [findery https://findery.com/caterina/notes/the-giants-causeway w="100%" h="400"] ```
 
 ### Method 3: Embed code
 

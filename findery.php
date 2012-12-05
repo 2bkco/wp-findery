@@ -40,9 +40,54 @@ final class Findery_Embed {
   private static $default_height = '400';
 
   public static function init() {
+    // Initialize shortcode handler
+    add_shortcode( 'findery', array( __CLASS__, 'findery_shortcode_handler' ) );
+    
+    // Add filter to transform <iframe> embeds into shortcode embeds.
+    add_filter( 'content_save_pre', array( __CLASS__, 'findery_replace_embed' ), 0 );
+    
+    // Register an embed handler so that standard Findery URLs are embedded automatically
     wp_embed_register_handler('findery', '#https:\/\/findery.com\/(notes|sets|[_a-z0-9]+$|[-_a-z0-9]+\/notes)(?:\/)?([-_a-z0-9]+)?#i', array( __CLASS__, 'findery_embed_handler') );
   }
 
+  /**
+   * Replaces <iframe> embeds with shortcode embeds in post content. If
+   * we don't replace the <iframe> ourselves, Wordpress will remove it
+   * entirely. This is more friendly.
+   *  
+   * @param  string $content The initial post content, before transformation.
+   * @return string          The new post content, after we replace Findery <iframe>s.
+   */
+  public static function findery_replace_embed( $content ) {
+    if ( preg_match_all('#(?:<|&lt;)iframe.*?\/\/findery.com\/embed.*?(?:>|&gt;).*?(?:<|&lt;)\/iframe(?:>|&gt;)#i', $content, $matches) ) {
+      
+      foreach( $matches[0] as $match ) {
+        
+        $unquoted = str_replace('"', "", $match);
+        preg_match('/src=([^\s]+)/', $unquoted, $src);
+        preg_match('/width=([^\s]+)/', $unquoted, $width);
+        preg_match('/height=([^\s]+)/', $unquoted, $height);
+
+        if ( $src[1] ) {
+
+          if ( $width[1] ) { $width = " width=\"{$width[1]}\""; } 
+          else { $width = ''; }
+          
+          if ( $height[1] ) { $height = " height=\"{$height[1]}\""; } 
+          else { $height = ''; }
+
+          $src = str_replace("embed/", "", $src[1]);
+          $content = str_replace($match, "[findery {$src} {$width}{$height}]", $content);
+
+        }    
+      }
+    }
+    return $content;
+  }
+
+  /**
+   * Handler for automatic embedding of Findery links.
+   */
   public static function findery_embed_handler( $matches, $attr, $url, $rawattr ) {
 
     if ( ! empty( $rawattr['width'] ) && ! empty( $rawattr['height'] ) ) {
@@ -58,10 +103,27 @@ final class Findery_Embed {
                    $height);
   }
 
+  /**
+   * Replaces Findery shortcodes with the proper <iframe> embed code.
+   * @param  array $atts Attributes parsed from the shortcode
+   * @return string      The code with which the shortcode is replaced.
+   */
+  public static function findery_shortcode_handler( $atts ) {
+    extract( shortcode_atts( array(
+      'w' => self::$default_width,
+      'h' => self::$default_height
+    ), $atts ) );
+
+    $src = preg_replace('/([^\/:])\//', '${1}/embed/', $atts[0], 1);
+
+    return "<iframe width=\"{$w}\" height=\"{$h}\" src=\"{$src}\" scrolling=\"no\" style=\"border:1px solid #ccc;\"></iframe>";
+
+  }
+
 }
 
 /**
  * Initialize plugin
  */
 
-add_action( 'plugins_loaded', array( 'Findery_Embed', 'init' ) );
+add_action( 'init', array( 'Findery_Embed', 'init' ) );

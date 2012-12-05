@@ -4,15 +4,27 @@ _Allows for shortcode embedding of [Findery](http://findery.com) notes in Wordpr
 
 ## Usage
 
-To embed a note using the WP-Findery shortcode, simply copy and paste the URL of any note on Findery. In the Wordpress editor, enter a shortcode as below, optionally specifying custom width and height parameters.
+WP-Findery provides several ways to embed Findery content in your Wordpress blog.
 
-### Basic
+### Method 1: Link
+
+Simply pasting a link to a Findery note in the Wordpress editor will automatically embed the note in your blog.
+
+```https://findery.com/caterina/notes/the-giants-causeway```
+
+### Method 2: Shortcode
+
+Use a link, similar to the method above, inside of a Findery shortcode. You may optionally specify a width and height when using this method.
 
 ```[findery https://findery.com/caterina/notes/the-giants-causeway]```
 
-### Custom width & height
-
 ```[findery https://findery.com/caterina/notes/the-giants-causeway w="100%" h="400"]```
+
+### Method 3: Embed code
+
+If you visit the page for any note on Findery, you will find an 'Embed' button that will provide you with code to embed that note. Copy and paste that code into the Wordpress editor, and WP-Findery will automatically convert the code into a shortcode.
+
+![Screenshot of Findery embed code](http://cl.ly/image/1B0G0D0l1a3G/Screen%20Shot%202012-12-05%20at%2012.36.37%20PM.png)
 
 ## License
 

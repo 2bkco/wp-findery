@@ -35,7 +35,7 @@ if ( ! class_exists( 'WP' ) ) {
 
 final class Findery_Embed {
 
-  private static $embed_base = '<iframe src="%s" width="%s" height="%s" scrolling="no" style="1px solid #ccc;"></iframe>';
+  private static $embed_base = '<iframe src="%s" width="%s" height="%s" scrolling="no" style="1px solid #ccc;" frameborder="no"></iframe>';
   private static $default_width = '500';
   private static $default_height = '400';
 
@@ -116,7 +116,7 @@ final class Findery_Embed {
 
     $src = preg_replace('/([^\/:])\//', '${1}/embed/', $atts[0], 1);
 
-    return "<iframe width=\"{$w}\" height=\"{$h}\" src=\"{$src}\" scrolling=\"no\" style=\"border:1px solid #ccc;\"></iframe>";
+    return "<iframe width=\"{$w}\" height=\"{$h}\" src=\"{$src}\" frameborder=\"no\" scrolling=\"no\" style=\"border:1px solid #ccc;\"></iframe>";
 
   }
 

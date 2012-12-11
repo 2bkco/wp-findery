@@ -115,6 +115,12 @@ final class Findery_Embed {
     ), $atts ) );
 
     $src = preg_replace('/([^\/:])\//', '${1}/embed/', $atts[0], 1);
+    $src = esc_url( preg_replace('/([^\/:])\//', '${1}/embed/', $atts[0], 1) );
+    if ( 'findery.com' != parse_url( $src, PHP_URL_HOST ) )
+      return;
+    
+    $w = (int)$w;
+    $h = (int)$h;
 
     return "<iframe width=\"{$w}\" height=\"{$h}\" src=\"{$src}\" frameborder=\"no\" scrolling=\"no\" style=\"border:1px solid #ccc;\"></iframe>";
 

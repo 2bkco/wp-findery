@@ -3,7 +3,7 @@
  * Plugin Name: Findery
  * Plugin URI: http://findery.com
  * Description: A shortcode plugin for embedding content from Findery in Wordpress blogs
- * Version: 0.1
+ * Version: 0.2
  * Author: Findery
  * Author URI: http://findery.com
  *
